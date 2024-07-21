@@ -11,22 +11,30 @@ from langchain_core.prompts import PromptTemplate
 
 def main():
     # Caminho para o arquivo PDF
-    pdf_path = "meu_pdf.pdf"
+    pdf_path = "telegestão.pdf"
     print("Carregando PDF e criando chunks...")
 
     # Carregue o PDF e divida-o em documentos individuais
     loader = PyPDFLoader(file_path=pdf_path)
     documents = loader.load()
+
+    print(documents)
     
-    # Divida os documentos em partes para incorporação
+    # Divide os documentos em partes para incorporação
     text_splitter = CharacterTextSplitter(
-        chunk_size=128, chunk_overlap=32, separator="\n"
+        chunk_size=512, chunk_overlap=64, separator="\n"
     )
     docs = text_splitter.split_documents(documents=documents)
+
+    for x in docs:
+        print(x)
+        print("----------------")
     
     print("Criando vetor de embeddings...")
 
-    # Create embeddings for the document chunks
+
+
+    # Cria os embeddings para os chunks do documento
     embedder = HuggingFaceEmbeddings()
     vectorstore = FAISS.from_documents(docs, embedder)
 
@@ -59,7 +67,7 @@ def main():
     )
 
     # Defina a consulta
-    query = "Escreva uma dissertação sobre o documento"
+    query = "analize este documento"
     print(f"Querying: {query}")
 
     # Invoca a cadeia de recuperação com a consulta e imprima a resposta

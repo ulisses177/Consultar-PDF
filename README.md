@@ -43,7 +43,7 @@ Este projeto fornece um script Python que processa um documento PDF, divide-o em
 1. Coloque seu documento PDF no mesmo diretório que o script e nomeie-o como `meu_pdf.pdf`.
 
 2. Execute o script:
-   ```
+   ```sh
    python pdfquery.py
    ```
 
